@@ -1,0 +1,9 @@
+{
+  "files.eol": "\n",
+  "editor.tabSize": 2,
+  "editor.useTabStops": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "liveServer.settings.root": "/dist"
+}
