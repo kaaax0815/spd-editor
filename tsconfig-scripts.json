@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "rootDir": "scripts",
+    "outDir": "scripts-out",
+    "declaration": false
+  },
+  "include": ["scripts/**/*.ts"],
+  "exclude": ["src/**/*.ts"]
+}

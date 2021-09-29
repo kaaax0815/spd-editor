@@ -86,6 +86,7 @@ out
 .nuxt
 #dist
 dist/js/bundle.js
+scripts-out
 
 # Gatsby files
 .cache/

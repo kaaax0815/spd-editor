@@ -1,6 +1,6 @@
-# spd
+# SPD Editor
 
-## 
+## Shattered Pixel Dungeon Save Game Editor
 
 ### 📜 License
 

@@ -2,7 +2,6 @@ import { Buffer } from 'buffer';
 import { gunzipSync, gzipSync } from 'zlib';
 
 import { Inventory as IInventory, SaveGame } from './game';
-import getItems, { ITEM } from './items';
 
 const fileInput = document.getElementById('fileupload') as HTMLInputElement;
 fileInput.addEventListener('input', afterFileInput);
@@ -122,6 +121,17 @@ class BasicInfo {
     data.hero.defenseSkill = this.defenseInput.valueAsNumber;
     return data;
   }
+}
+
+export default async function getItems(): Promise<ITEM[]> {
+  const response = await fetch('/js/items.json');
+  return response.json();
+}
+
+export interface ITEM {
+  className: string;
+  name: string;
+  imagePath: string;
 }
 
 class Inventory {

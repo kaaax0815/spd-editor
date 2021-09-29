@@ -1,4 +1,7 @@
-import { TreeAPI, Type } from './github';
+import { writeFile } from 'fs/promises';
+import fetch from 'node-fetch';
+
+import { TreeAPI, Type } from './github.js';
 
 const CONTENTS = '/repos/00-Evan/shattered-pixel-dungeon/contents';
 
@@ -8,32 +11,20 @@ const GITUHB_API = 'https://api.github.com';
 
 const VERSION = '4aed22a4f2ebea34e42fa961ee17f97588ca1acf';
 
-export interface ITEM {
+interface ITEM {
   className: string;
   name: string;
   imagePath: string;
 }
 
-export default async function getItems(): Promise<ITEM[]> {
-  const localJSON = localStorage.getItem('available_items');
-  if (localJSON) {
-    const obj = JSON.parse(localJSON) as { available_items: ITEM[]; last_update: number };
-    // no need to update because of fixed version
-    if (obj.available_items.length > 0) {
-      return obj.available_items;
-    }
-  }
-  const available_items = await _getItems();
-  localStorage.setItem(
-    'available_items',
-    JSON.stringify({ available_items, last_update: Date.now() })
-  );
+async function _getItems(): Promise<ITEM[]> {
+  const available_items = await __getItems();
   return available_items;
 }
 
-async function _getItems(available_items: ITEM[] = [], folder?: string): Promise<ITEM[]> {
+async function __getItems(available_items: ITEM[] = [], folder?: string): Promise<ITEM[]> {
   const itemsResult = await fetch(GITUHB_API + CONTENTS + (folder || START_PATH));
-  const items: TreeAPI[] = await itemsResult.json();
+  const items = (await itemsResult.json()) as TreeAPI[];
   for (const item of items) {
     if (item.type === Type.File) {
       const name = item.name.replace('.java', '');
@@ -60,7 +51,7 @@ async function _getItems(available_items: ITEM[] = [], folder?: string): Promise
         imagePath: '/images/items/' + image[1] + '.png'
       });
     } else if (item.type === Type.Dir) {
-      await _getItems(available_items, item.path);
+      await __getItems(available_items, item.path);
     }
   }
   return available_items;
@@ -70,3 +61,8 @@ function classPrefix(subClasses: ['items', ...string[]]) {
   const CORE_CLASS = 'com.shatteredpixel.shatteredpixeldungeon.';
   return CORE_CLASS + subClasses.join('.');
 }
+console.log('Getting items...');
+_getItems().then((items) => {
+  console.log('Writing File...');
+  writeFile('dist/js/items.json', JSON.stringify(items), 'utf8');
+});
