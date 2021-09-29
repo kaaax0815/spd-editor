@@ -712,7 +712,7 @@
   resolved "https://registry.yarnpkg.com/@types/file-saver/-/file-saver-2.0.3.tgz#b734c4f5a04d20615eaed3dc106e2ab321082009"
   integrity sha512-MBIou8pd/41jkff7s97B47bc9+p0BszqqDJsO51yDm49uUxeKzrfuNl5fSLC6BpLEWKA8zlwyqALVmXrFwoBHQ==
 
-"@types/jquery@^3.5.6":
+"@types/jquery@*", "@types/jquery@^3.5.6":
   version "3.5.6"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.5.6.tgz#97ac8e36dccd8ad8ed3f3f3b48933614d9fd8cf0"
   integrity sha512-SmgCQRzGPId4MZQKDj9Hqc6kSXFNWZFHpELkyK8AQhf8Zr6HKfCzFv9ZC1Fv3FyQttJZOlap3qYb12h61iZAIg==
@@ -767,6 +767,13 @@
   version "0.12.1"
   resolved "https://registry.yarnpkg.com/@types/retry/-/retry-0.12.1.tgz#d8f1c0d0dc23afad6dc16a9e993a0865774b4065"
   integrity sha512-xoDlM2S4ortawSWORYqsdU+2rxdh4LRW9ytc3zmT37RIKQh6IHyKwwtKhKis9ah8ol07DCkZxPt8BBvPjC6v4g==
+
+"@types/select2@^4.0.54":
+  version "4.0.54"
+  resolved "https://registry.yarnpkg.com/@types/select2/-/select2-4.0.54.tgz#8305e519c16ee01a3e818894bec3eec88966a3c6"
+  integrity sha512-xq8c3zsKktym2b9XbDLUWBDyX0WyWjKzeFsDQHkM9p6NfxJza4g2Ud1bheTKNXpHNyVPUrfGwDEMN7JBe3gQbw==
+  dependencies:
+    "@types/jquery" "*"
 
 "@types/sizzle@*":
   version "2.3.3"

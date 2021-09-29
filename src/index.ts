@@ -30,10 +30,8 @@ async function afterFileInput() {
     .getElementById('save')!
     .addEventListener('click', () => saveToFile(data, basicInfo, inventory));
 
-  // add button
-  document.getElementById('add')!.addEventListener('click', () => {
-    const value = (document.getElementById('item') as HTMLSelectElement).value;
-    inventory.add(value);
+  $('#item').on('select2:select', (e) => {
+    inventory.add(e.params.data.id);
   });
 
   // hide loading
@@ -154,6 +152,21 @@ class Inventory {
     items.forEach((v) => {
       document.getElementById('item')?.appendChild(createOption(v.className, v.name));
     });
+    // item select
+    $('#item')
+      .select2({
+        width: '100%',
+        templateResult: (state) => {
+          if (!state.id) {
+            return state.text;
+          }
+          const item = items.find((v) => v.className === state.id)!;
+          const $state = $(`<span><img src="${item.imagePath}">${item.name}</span>`);
+          return $state;
+        }
+      })
+      .val('')
+      .trigger('change');
     return new Inventory(items);
   }
 
@@ -163,7 +176,7 @@ class Inventory {
       const gItem = this.items.find((v) => v.className === item.__className)!;
       this.invSlots[
         i
-      ].innerHTML = `<img src="${gItem.imagePath}" data-class="${gItem.className}""><input type="number" min="0" max="99" value="${item.quantity}">`;
+      ].innerHTML = `<img src="${gItem.imagePath}" alt="${gItem.name}" title="${gItem.name}" data-class="${gItem.className}""><input type="number" min="0" max="99" value="${item.quantity}">`;
     });
   }
 

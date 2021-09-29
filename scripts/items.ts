@@ -24,7 +24,10 @@ async function _getItems(): Promise<ITEM[]> {
 
 async function __getItems(available_items: ITEM[] = [], folder?: string): Promise<ITEM[]> {
   const itemsResult = await fetch(GITUHB_API + CONTENTS + (folder || START_PATH));
-  const items = (await itemsResult.json()) as TreeAPI[];
+  const items = (await itemsResult.json()) as TreeAPI[] | GithubError;
+  if (!isTreeAPI(items)) {
+    throw new Error(JSON.stringify(items));
+  }
   for (const item of items) {
     if (item.type === Type.File) {
       const name = item.name.replace('.java', '');
@@ -32,9 +35,12 @@ async function __getItems(available_items: ITEM[] = [], folder?: string): Promis
         `https://raw.githubusercontent.com/00-Evan/shattered-pixel-dungeon/${VERSION}/${item.path}`
       );
       const pathText = await pathResult.text();
-      const image = pathText.match(/image = ItemSpriteSheet\.(.*);/);
+      let image = pathText.match(/image = ItemSpriteSheet\.(.*);/);
       if (!image) {
-        continue;
+        image = pathText.match(/icon = ItemSpriteSheet\.Icons\.(.*);/);
+        if (!image) {
+          continue;
+        }
       }
       if (typeof image[1] !== 'string') {
         continue;
@@ -43,11 +49,11 @@ async function __getItems(available_items: ITEM[] = [], folder?: string): Promis
         continue;
       }
       const adfix = folder
-        ? [folder.replace(START_PATH.slice(1) + '/', '').replace('/', '.'), name]
+        ? [folder.replace(START_PATH.slice(1) + '/', '').replace(/\//g, '.'), name]
         : [name];
       available_items.push({
         className: classPrefix(['items', ...adfix]),
-        name,
+        name: splitCamelCase(name),
         imagePath: '/images/items/' + image[1] + '.png'
       });
     } else if (item.type === Type.Dir) {
@@ -55,6 +61,19 @@ async function __getItems(available_items: ITEM[] = [], folder?: string): Promis
     }
   }
   return available_items;
+}
+
+function isTreeAPI(a: TreeAPI[] | GithubError): a is TreeAPI[] {
+  return (a as TreeAPI[]).length !== undefined;
+}
+
+interface GithubError {
+  message: string;
+  documentation_url: string;
+}
+
+function splitCamelCase(str: string): string {
+  return str.replace(/([a-z])([A-Z])/g, '$1 $2');
 }
 
 function classPrefix(subClasses: ['items', ...string[]]) {
