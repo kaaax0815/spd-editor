@@ -123,12 +123,12 @@ class BasicInfo {
   }
 }
 
-export default async function getItems(): Promise<ITEM[]> {
+async function getItems(): Promise<ITEM[]> {
   const response = await fetch('/js/items.json');
   return response.json();
 }
 
-export interface ITEM {
+interface ITEM {
   className: string;
   name: string;
   imagePath: string;
