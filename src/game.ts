@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface SaveGame {
+  score: number;
   ankhsUsed: number;
   foodEaten: number;
   version: number;

@@ -5,8 +5,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://unpkg.com/file-saver@2.0.5/dist/FileSaver.min.js" defer></script>
-  <script src="js/bundle.js" defer></script>
-  <link href="css/styles.css" rel="stylesheet">
+  <script src="/js/bundle.js" defer></script>
+  <link href="/css/styles.css" rel="stylesheet">
+  <link rel="shortcut icon" type="image/png" href="/images/favicon.png" sizes="432x432">
   <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
     integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
@@ -22,6 +23,37 @@
       <div class="loader"></div>
     </div>
     <div id="main" style="display: none;">
+      <div id="info">
+        <label for="seed">Seed</label>
+        <input type="number" min="0" id="seed">
+        <br>
+        <label for="version">Version</label>
+        <input type="number" min="0" id="version">
+        <br>
+        <label for="amuletObtained">Amulet of Yendor obtained?</label>
+        <input type="checkbox" id="amuletObtained">
+        <br>
+        <label for="score">Score (total amount of gold collected)</label>
+        <input type="number" min="0" id="score">
+        <br>
+        <label for="gold">Gold</label>
+        <input type="number" min="0" id="gold">
+        <br>
+        <label for="health">Health</label>
+        <input type="number" min="0" id="health">
+        <br>
+        <label for="maxhealth">Max Health</label>
+        <input type="number" min="0" id="maxhealth">
+        <br>
+        <label for="strength">Strength</label>
+        <input type="number" min="0" id="strength">
+        <br>
+        <label for="attack">Attack</label>
+        <input type="number" min="0" id="attack">
+        <br>
+        <label for="defense">Defense</label>
+        <input type="number" min="0" id="defense">
+      </div>
       <table>
           <tr>
             <td class="inv-slot">-</td>
@@ -56,6 +88,8 @@
             <td class="inv-slot">-</td>
           </tr>
       </table>
+      <select id="item"></select>
+      <button id="add">Add Item</button>
       <button id="save">Save</button>
     </div>
   </div>

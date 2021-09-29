@@ -8,7 +8,7 @@ const GITUHB_API = 'https://api.github.com';
 
 const VERSION = '4aed22a4f2ebea34e42fa961ee17f97588ca1acf';
 
-interface ITEM {
+export interface ITEM {
   className: string;
   name: string;
   imagePath: string;
