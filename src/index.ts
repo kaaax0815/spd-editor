@@ -34,7 +34,7 @@ async function afterInput(ev: Event) {
   data.hero.inventory.forEach((item, i) => {
     invSlots[i].classList.add('item');
     invSlots[i].innerHTML = `<img src="${
-      items.find((v) => v.className === item.__className)?.image
+      items.find((v) => v.className === item.__className)?.imagePath
     }" data-class="${item.__className}""><input type="number" min="0" max="99" value="${
       item.quantity
     }">`;

@@ -7,7 +7,7 @@ export default {
   input: 'src/index.ts',
   output: {
     format: 'umd',
-    file: 'dist/bundle.js'
+    file: 'dist/js/bundle.js'
   },
   plugins: [nodePolyfills(), typescript(), nodeResolve(), commonjs()]
 };

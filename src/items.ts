@@ -11,7 +11,7 @@ const VERSION = '4aed22a4f2ebea34e42fa961ee17f97588ca1acf';
 interface ITEM {
   className: string;
   name: string;
-  image: string;
+  imagePath: string;
 }
 
 export default async function getItems(): Promise<ITEM[]> {
@@ -57,7 +57,7 @@ async function _getItems(available_items: ITEM[] = [], folder?: string): Promise
       available_items.push({
         className: classPrefix(['items', ...adfix]),
         name,
-        image: '/items/' + image[1] + '.png'
+        imagePath: '/images/items/' + image[1] + '.png'
       });
     } else if (item.type === Type.Dir) {
       await _getItems(available_items, item.path);
