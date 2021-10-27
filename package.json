@@ -16,7 +16,7 @@
   "dependencies": {},
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",
-    "@rollup/plugin-node-resolve": "^13.0.5",
+    "@rollup/plugin-node-resolve": "^13.0.6",
     "@rollup/plugin-typescript": "^8.2.5",
     "@types/file-saver": "^2.0.3",
     "@types/jquery": "^3.5.6",
